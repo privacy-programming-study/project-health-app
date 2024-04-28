@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar> 
+    <ion-buttons slot="start">
+      <ion-back-button text="Back" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Doctor Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="flex-center">
+    <form #docFormLog="ngForm">
+      <ion-card>
+        <ion-card-content>
+          <ion-list>
+              <ion-item>
+                <ion-label position="floating" >E-Mail</ion-label>
+                <ion-input color="dark" type="email" autofocus="on" clearInput="true" pattern="([A-Za-z0-9][._]?)+[A-Za-z0-9]@[A-Za-z0-9]+(\.?[A-Za-z0-9]){2}\.(com?|net|org|de)+(\.[A-Za-z0-9]{2,4})?" ngModel name = "docEmail" placeholder="xyz@domain.com" required="true" #docEmailCtrl = "ngModel"> </ion-input>    
+                <ion-icon name="mail-outline" slot="end" align-self-center ></ion-icon>
+              </ion-item>
+            <ion-item>
+              <ion-label position="floating">Password</ion-label>
+              <ion-input color="dark" type="password" required="true" autofocus="on" ngModel name="docPwd" minlength="8" clearInput="true" #docPwdCtrl = "ngModel"></ion-input>
+              <ion-icon name="lock-closed-outline" slot="end" align-self-center></ion-icon>
+            </ion-item>
+            <ion-button class="login-btn" type="submit" color="primary" expand="block" (click)="onDocLogin()" [disabled]="!docFormLog.valid">Login</ion-button>
+            <ion-button class="forgot-btn" type="button" color="dark" fill="clear" expand="block" (click)="onForgotPassword()">Forgot password</ion-button>
+            <p class="registrate">
+              Are you new?
+              <ion-item lines="none" href="/registrate/doctor" class="registrate-link" color="background-color">
+                <ion-label color="primary">
+                  Registrate here
+                </ion-label>
+              </ion-item>
+            </p>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </form>
+  </div>
+</ion-content>

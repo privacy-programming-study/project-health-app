@@ -1,0 +1,733 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-list class="top-menu">
+      <ion-item>
+        <ion-button class="profileBtn" (click)="onProfile()">
+          <ion-icon name="person-circle-outline"></ion-icon>
+        </ion-button>
+        <ion-button class="logoutBtn" (click)="onLogout()">
+          <ion-icon name="log-out-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+    <ion-title class="ion-text-center">Health Records</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #recordsForm = "ngForm">
+    <ion-row>
+      <ion-col style="text-align: right;">
+        <ion-icon class="edit-health-records" name="create-outline" (click)="onEdit()" *ngIf="!isEditMode"></ion-icon>
+        <ion-icon class="edit-health-records" name="bookmark-outline" (click)="onSave(recordsForm)" *ngIf="isEditMode"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-grid>
+      <div class="personal-info">
+        <h4>Personal Information</h4>
+        <ion-row>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label position="stacked">First Name</ion-label>
+              <ion-input type="text" ngModel name="personalInfoFirstname" value="{{personalInfo?.firstname}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label position="stacked">Last Name</ion-label>
+              <ion-input type="text" [(ngModel)]="personalInfoLastname" name="personalInfoLastname" value="{{personalInfo?.lastname}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label position="stacked">Patient Identifier</ion-label>
+              <ion-input type="text" [(ngModel)]="personalInfoIdentifier" name="personalInfoIdentifier" value="{{personalInfo?.patient_identifier}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        
+        <ion-row>
+          <ion-col size="3">
+            <ion-item>
+              <ion-label position="stacked">Gender</ion-label>
+              <ion-select [(ngModel)]="personalInfoGender" name="personalInfoGender" [disabled]="!isEditMode">
+                <ion-select-option value="M">Male</ion-select-option>
+                <ion-select-option value="F">Female</ion-select-option>
+                <ion-select-option value="O">Other</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="3">
+            <ion-item class="birth-date">
+              <ion-label position="stacked">Date of Birth</ion-label>
+              <ion-input [(ngModel)]="personalInfoBirthdate" name="personalInfoBirthdate" value="{{personalInfo?.birthdate}}" type="text" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="3">
+            <ion-item>
+              <ion-label position="stacked">Blood Type</ion-label>
+              <ion-input [(ngModel)]="personalInfoBloodType" type="text" name="personalInfoBloodType" value="{{personalInfo?.bloodType}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="3">
+            <ion-item>
+              <ion-label position="stacked">Last Updated Date</ion-label>
+              <ion-input [(ngModel)]="personalInfoLastUpdated" type="text" name="personalInfoLastUpdated" value="{{personalInfo?.lastUpdated}}" disabled="true"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="6">
+            <ion-item>
+              <ion-label position="stacked">Address</ion-label>
+              <ion-input [(ngModel)]="personalInfoAddress" type="text" name="personalInfoAddress" value="{{personalInfo?.address}}" [disabled]="!isEditMode" ></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="3">
+            <ion-item>
+              <ion-label position="stacked">City</ion-label>
+              <ion-input [(ngModel)]="personalInfoCity" type="text" name="personalInfoCity" value="{{personalInfo?.city}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="3">
+            <ion-item>
+              <ion-label position="stacked">Zip Code</ion-label>
+              <ion-input [(ngModel)]="personalInfoZip" type="text" name="personalInfoZip" value="{{personalInfo?.zip}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </div>
+      
+
+      <div class="emergency-contact">
+        <h4>Emergency Contact</h4>
+        <ion-row>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label position="stacked">Full Name</ion-label>
+              <ion-input [(ngModel)]="emergencyContactFullname_1" type="text" name="emergencyContactFullname_1" value="{{emergencyContact[0]?.fullname}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label position="stacked">Relationship</ion-label>
+              <ion-input [(ngModel)]="emergencyContactRelationship_1" type="text" name="emergencyContactRelationship_1" value="{{emergencyContact[0]?.relationship}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label position="stacked">Contact Number</ion-label>
+              <ion-input [(ngModel)]="emergencyContactNumber_1" type="text" name="emergencyContactNumber_1" value="{{emergencyContact[0]?.contactNumber}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label position="stacked">Full Name</ion-label>
+              <ion-input [(ngModel)]="emergencyContactFullname_2" type="text" name="emergencyContactFullname_2" value="{{emergencyContact[1]?.fullname}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label position="stacked">Relationship</ion-label>
+              <ion-input [(ngModel)]="emergencyContactRelationship_2" type="text" name="emergencyContactRelationship_2" value="{{emergencyContact[1]?.relationship}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label position="stacked">Contact Number</ion-label>
+              <ion-input [(ngModel)]="emergencyContactNumber_2" type="text" name="emergencyContactNumber_2" value="{{emergencyContact[1]?.contactNumber}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </div>
+      
+
+      <div class="insurance-info">
+        <h4>Insurance Information</h4>
+        <ion-row>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label position="stacked">Insurance Carrier</ion-label>
+              <ion-input [(ngModel)]="insuranceInfoCarrier" type="text" name="insuranceInfoCarrier" value="{{insuranceInfo?.insuranceCarrier}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label position="stacked">Insurance Plan</ion-label>
+              <ion-input [(ngModel)]="insuranceInfoPlan" type="text" name="insuranceInfoPlan" value="{{insuranceInfo?.insurancePlan}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label position="stacked">Contact Number</ion-label>
+              <ion-input [(ngModel)]="insuranceInfoContactNumber" type="text" name="insuranceInfoContactNumber" value="{{insuranceInfo?.contactNumber}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        
+        <ion-row>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label position="stacked">Policy Number</ion-label>
+              <ion-input [(ngModel)]="insuranceInfoPolicyNumber" type="text" name="insuranceInfoPolicyNumber" value="{{insuranceInfo?.policyNumber}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label position="stacked">Group Number</ion-label>
+              <ion-input [(ngModel)]="insuranceInfoGroupNumber" type="text" name="insuranceInfoGroupNumber" value="{{insuranceInfo?.groupNumber}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="4">
+            <ion-item>
+              <ion-label position="stacked">Social Security Number</ion-label>
+              <ion-input [(ngModel)]="insuranceInfoSecurityNumber" type="text" name="insuranceInfoSecurityNumber" value="{{insuranceInfo?.socialSecurityNumber}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </div>
+
+      <div class="health-info">
+        <h4>Health Information</h4>
+        <h6 style="margin-top: 1em;">Physician Information</h6>
+        <ion-row>
+          <ion-col size="2.4">
+            <ion-item>
+              <ion-label position="stacked">Name</ion-label>
+              <ion-textarea [(ngModel)]="physicianInfoName_1" rows="3" [autoGrow]="true" name="physicianInfoName_1" value="{{physicianInfo[0]?.name}}" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2.4">
+            <ion-item>
+              <ion-label position="stacked">Designation/Speciality</ion-label>
+              <ion-textarea [(ngModel)]="physicianInfoSpeciality_1" rows="3" [autoGrow]="true" name="physicianInfoSpeciality_1" value="{{physicianInfo[0]?.speciality}}" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2.4">
+            <ion-item>
+              <ion-label position="stacked">Phone</ion-label>
+              <ion-textarea [(ngModel)]="physicianInfoPhone_1" rows="3" [autoGrow]="true" name="physicianInfoPhone_1" value="{{physicianInfo[0]?.phone}}" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2.4">
+            <ion-item>
+              <ion-label position="stacked">Address</ion-label>
+              <ion-textarea [(ngModel)]="physicianInfoAddress_1" rows="3" [autoGrow]="true" name="physicianInfoAddress_1" value="{{physicianInfo[0]?.address}}" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2.4">
+            <ion-item>
+              <ion-label position="stacked">Notes</ion-label>
+              <ion-textarea [(ngModel)]="physicianInfoNotes_1" rows="3" [autoGrow]="true" name="physicianInfoNotes_1" value="{{physicianInfo[0]?.notes}}" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="2.4">
+            <ion-item>
+              <ion-label position="stacked">Name</ion-label>
+              <ion-textarea [(ngModel)]="physicianInfoName_2" rows="3" [autoGrow]="true" name="physicianInfoName_2" value="{{physicianInfo[1]?.name}}" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2.4">
+            <ion-item>
+              <ion-label position="stacked">Designation/Speciality</ion-label>
+              <ion-textarea [(ngModel)]="physicianInfoSpeciality_2" rows="3" [autoGrow]="true" name="physicianInfoSpeciality_2" value="{{physicianInfo[1]?.speciality}}" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2.4">
+            <ion-item>
+              <ion-label position="stacked">Phone</ion-label>
+              <ion-textarea [(ngModel)]="physicianInfoPhone_2" rows="3" [autoGrow]="true" name="physicianInfoPhone_2" value="{{physicianInfo[1]?.phone}}" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2.4">
+            <ion-item>
+              <ion-label position="stacked">Address</ion-label>
+              <ion-textarea [(ngModel)]="physicianInfoAddress_2" rows="3" [autoGrow]="true" name="physicianInfoAddress_2" value="{{physicianInfo[1]?.address}}" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2.4">
+            <ion-item>
+              <ion-label position="stacked">Notes</ion-label>
+              <ion-textarea [(ngModel)]="physicianInfoNotes_2" rows="3" [autoGrow]="true" name="physicianInfoNotes_2" value="{{physicianInfo[1]?.notes}}" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="2.4">
+            <ion-item>
+              <ion-label position="stacked">Name</ion-label>
+              <ion-textarea [(ngModel)]="physicianInfoName_3" rows="3" [autoGrow]="true" name="physicianInfoName_3" value="{{physicianInfo[2]?.name}}" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2.4">
+            <ion-item>
+              <ion-label position="stacked">Designation/Speciality</ion-label>
+              <ion-textarea [(ngModel)]="physicianInfoSpeciality_3" rows="3" [autoGrow]="true" name="physicianInfoSpeciality_3" value="{{physicianInfo[2]?.speciality}}" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2.4">
+            <ion-item>
+              <ion-label position="stacked">Phone</ion-label>
+              <ion-textarea [(ngModel)]="physicianInfoPhone_3" rows="3" [autoGrow]="true" name="physicianInfoPhone_3" value="{{physicianInfo[2]?.phone}}" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2.4">
+            <ion-item>
+              <ion-label position="stacked">Address</ion-label>
+              <ion-textarea [(ngModel)]="physicianInfoAddress_3" rows="3" [autoGrow]="true" name="physicianInfoAddress_3" value="{{physicianInfo[2]?.address}}" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2.4">
+            <ion-item>
+              <ion-label position="stacked">Notes</ion-label>
+              <ion-textarea [(ngModel)]="physicianInfoNotes_3" rows="3" [autoGrow]="true" name="physicianInfoNotes_3" value="{{physicianInfo[2]?.notes}}" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="2.4">
+            <ion-item>
+              <ion-label position="stacked">Name</ion-label>
+              <ion-textarea [(ngModel)]="physicianInfoName_4" rows="3" [autoGrow]="true" name="physicianInfoName_4" value="{{physicianInfo[3]?.name}}" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2.4">
+            <ion-item>
+              <ion-label position="stacked">Designation/Speciality</ion-label>
+              <ion-textarea [(ngModel)]="physicianInfoSpeciality_4" rows="3" [autoGrow]="true" name="physicianInfoSpeciality_4" value="{{physicianInfo[3]?.speciality}}" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2.4">
+            <ion-item>
+              <ion-label position="stacked">Phone</ion-label>
+              <ion-textarea [(ngModel)]="physicianInfoPhone_4" rows="3" [autoGrow]="true" name="physicianInfoPhone_4" value="{{physicianInfo[3]?.phone}}" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2.4">
+            <ion-item>
+              <ion-label position="stacked">Address</ion-label>
+              <ion-textarea [(ngModel)]="physicianInfoAddress_4" rows="3" [autoGrow]="true" name="physicianInfoAddress_4" value="{{physicianInfo[3]?.address}}" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2.4">
+            <ion-item>
+              <ion-label position="stacked">Notes</ion-label>
+              <ion-textarea [(ngModel)]="physicianInfoNotes_4" rows="3" [autoGrow]="true" name="physicianInfoNotes_4" value="{{physicianInfo[3]?.notes}}" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="2.4">
+            <ion-item>
+              <ion-label position="stacked">Name</ion-label>
+              <ion-textarea [(ngModel)]="physicianInfoName_5" rows="3" [autoGrow]="true" name="physicianInfoName_5" value="{{physicianInfo[4]?.name}}" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2.4">
+            <ion-item>
+              <ion-label position="stacked">Designation/Speciality</ion-label>
+              <ion-textarea [(ngModel)]="physicianInfoSpeciality_5" rows="3" [autoGrow]="true" name="physicianInfoSpeciality_5" value="{{physicianInfo[4]?.speciality}}" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2.4">
+            <ion-item>
+              <ion-label position="stacked">Phone</ion-label>
+              <ion-textarea [(ngModel)]="physicianInfoPhone_5" rows="3" [autoGrow]="true" name="physicianInfoPhone_5" value="{{physicianInfo[4]?.phone}}" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2.4">
+            <ion-item>
+              <ion-label position="stacked">Address</ion-label>
+              <ion-textarea [(ngModel)]="physicianInfoAddress_5" rows="3" [autoGrow]="true" name="physicianInfoAddress_5" value="{{physicianInfo[4]?.address}}" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+          <ion-col size="2.4">
+            <ion-item>
+              <ion-label position="stacked">Notes</ion-label>
+              <ion-textarea [(ngModel)]="physicianInfoNotes_5" rows="3" [autoGrow]="true" name="physicianInfoNotes_5" value="{{physicianInfo[4]?.notes}}" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <h6>Known Medical Condition(s)</h6>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-textarea [(ngModel)]="medicalConditionString" rows="5" [autoGrow]="true" name="medicalConditionString" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <h6>Allergies</h6>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-textarea [(ngModel)]="allergiesString" rows="5" [autoGrow]="true" name="allergiesString" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+        <h6>Current Medications</h6>
+        <ion-row>
+          <ion-col size="3">
+            <ion-item>
+              <ion-label position="stacked">Medication Name</ion-label>
+              <ion-input [(ngModel)]="medicationName_1" type="text" name="medicationName_1" value="{{medication[0]?.name}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="1.5">
+            <ion-item>
+              <ion-label position="stacked">Dose</ion-label>
+              <ion-input [(ngModel)]="medicationDose_1" type="text" name="medicationDose_1" value="{{medication[0]?.dose}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="1.5">
+            <ion-item>
+              <ion-label position="stacked">Frequency</ion-label>
+              <ion-input [(ngModel)]="medicationFrequency_1" type="text" name="medicationFrequency_1" value="{{medication[0]?.frequency}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="3">
+            <ion-item>
+              <ion-label position="stacked">Indication</ion-label>
+              <ion-input [(ngModel)]="medicationIndication_1" type="text" name="medicationIndication_1" value="{{medication[0]?.indication}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="3">
+            <ion-item>
+              <ion-label position="stacked">Note</ion-label>
+              <ion-input [(ngModel)]="medicationNote_1" type="text" name="medicationNote_1" value="{{medication[0]?.note}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="3">
+            <ion-item>
+              <ion-label position="stacked">Medication Name</ion-label>
+              <ion-input [(ngModel)]="medicationName_2" type="text" name="medicationName_2" value="{{medication[1]?.name}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="1.5">
+            <ion-item>
+              <ion-label position="stacked">Dose</ion-label>
+              <ion-input [(ngModel)]="medicationDose_2" type="text" name="medicationDose_2" value="{{medication[1]?.dose}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="1.5">
+            <ion-item>
+              <ion-label position="stacked">Frequency</ion-label>
+              <ion-input [(ngModel)]="medicationFrequency_2" type="text" name="medicationFrequency_2" value="{{medication[1]?.frequency}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="3">
+            <ion-item>
+              <ion-label position="stacked">Indication</ion-label>
+              <ion-input [(ngModel)]="medicationIndication_2" type="text" name="medicationIndication_2" value="{{medication[1]?.indication}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="3">
+            <ion-item>
+              <ion-label position="stacked">Note</ion-label>
+              <ion-input [(ngModel)]="medicationNote_2" type="text" name="medicationNote_2" value="{{medication[1]?.note}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="3">
+            <ion-item>
+              <ion-label position="stacked">Medication Name</ion-label>
+              <ion-input [(ngModel)]="medicationName_3" type="text" name="medicationName_3" value="{{medication[2]?.name}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="1.5">
+            <ion-item>
+              <ion-label position="stacked">Dose</ion-label>
+              <ion-input [(ngModel)]="medicationDose_3" type="text" name="medicationDose_3" value="{{medication[2]?.dose}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="1.5">
+            <ion-item>
+              <ion-label position="stacked">Frequency</ion-label>
+              <ion-input [(ngModel)]="medicationFrequency_3" type="text" name="medicationFrequency_3" value="{{medication[2]?.frequency}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="3">
+            <ion-item>
+              <ion-label position="stacked">Indication</ion-label>
+              <ion-input [(ngModel)]="medicationIndication_3" type="text" name="medicationIndication_3" value="{{medication[2]?.indication}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="3">
+            <ion-item>
+              <ion-label position="stacked">Note</ion-label>
+              <ion-input [(ngModel)]="medicationNote_3" type="text" name="medicationNote_3" value="{{medication[2]?.note}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="3">
+            <ion-item>
+              <ion-label position="stacked">Medication Name</ion-label>
+              <ion-input [(ngModel)]="medicationName_4" type="text" name="medicationName_4" value="{{medication[3]?.name}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="1.5">
+            <ion-item>
+              <ion-label position="stacked">Dose</ion-label>
+              <ion-input [(ngModel)]="medicationDose_4" type="text" name="medicationDose_4" value="{{medication[3]?.dose}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="1.5">
+            <ion-item>
+              <ion-label position="stacked">Frequency</ion-label>
+              <ion-input [(ngModel)]="medicationFrequency_4" type="text" name="medicationFrequency_4" value="{{medication[3]?.frequency}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="3">
+            <ion-item>
+              <ion-label position="stacked">Indication</ion-label>
+              <ion-input [(ngModel)]="medicationIndication_4" type="text" name="medicationIndication_4" value="{{medication[3]?.indication}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="3">
+            <ion-item>
+              <ion-label position="stacked">Note</ion-label>
+              <ion-input [(ngModel)]="medicationNote_4" type="text" name="medicationNote_4" value="{{medication[3]?.note}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="3">
+            <ion-item>
+              <ion-label position="stacked">Medication Name</ion-label>
+              <ion-input [(ngModel)]="medicationName_5" type="text" name="medicationName_5" value="{{medication[4]?.name}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="1.5">
+            <ion-item>
+              <ion-label position="stacked">Dose</ion-label>
+              <ion-input [(ngModel)]="medicationDose_5" type="text" name="medicationDose_5" value="{{medication[4]?.dose}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="1.5">
+            <ion-item>
+              <ion-label position="stacked">Frequency</ion-label>
+              <ion-input [(ngModel)]="medicationFrequency_5" type="text" name="medicationFrequency_5" value="{{medication[4]?.frequency}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="3">
+            <ion-item>
+              <ion-label position="stacked">Indication</ion-label>
+              <ion-input [(ngModel)]="medicationIndication_5" type="text" name="medicationIndication_5" value="{{medication[4]?.indication}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="3">
+            <ion-item>
+              <ion-label position="stacked">Note</ion-label>
+              <ion-input [(ngModel)]="medicationNote_5" type="text" name="medicationNote_5" value="{{medication[4]?.note}}" [disabled]="!isEditMode"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </div>
+
+      <h6>Vaccination History</h6>
+      <ion-row>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Vaccination</ion-label>
+            <ion-input [(ngModel)]="vaccination_1" type="text" name="vaccination_1" value="{{vaccination[0]?.vaccination}}" [disabled]="!isEditMode"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Type</ion-label>
+            <ion-input [(ngModel)]="vaccinationType_1" type="text" name="vaccinationType_1" value="{{vaccination[0]?.type}}" [disabled]="!isEditMode"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Date Received</ion-label>
+            <ion-input [(ngModel)]="vaccinationDate_1" type="text" name="vaccinationDate_1" value="{{vaccination[0]?.dateReceived}}" [disabled]="!isEditMode"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Vaccination</ion-label>
+            <ion-input [(ngModel)]="vaccination_2" type="text" name="vaccination_2" value="{{vaccination[1]?.vaccination}}" [disabled]="!isEditMode"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Type</ion-label>
+            <ion-input [(ngModel)]="vaccinationType_2" type="text" name="vaccinationType_2" value="{{vaccination[1]?.type}}" [disabled]="!isEditMode"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Date Received</ion-label>
+            <ion-input [(ngModel)]="vaccinationDate_2" type="text" name="vaccinationDate_2" value="{{vaccination[1]?.dateReceived}}" [disabled]="!isEditMode"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Vaccination</ion-label>
+            <ion-input [(ngModel)]="vaccination_3" type="text" name="vaccination_3" value="{{vaccination[2]?.vaccination}}" [disabled]="!isEditMode"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Type</ion-label>
+            <ion-input [(ngModel)]="vaccinationType_3" type="text" name="vaccinationType_3" value="{{vaccination[2]?.type}}" [disabled]="!isEditMode"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Date Received</ion-label>
+            <ion-input [(ngModel)]="vaccinationDate_3" type="text" name="vaccinationDate_3" value="{{vaccination[2]?.dateReceived}}" [disabled]="!isEditMode"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Vaccination</ion-label>
+            <ion-input [(ngModel)]="vaccination_4" type="text" name="vaccination_4" value="{{vaccination[3]?.vaccination}}" [disabled]="!isEditMode"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Type</ion-label>
+            <ion-input [(ngModel)]="vaccinationType_4" type="text" name="vaccinationType_4" value="{{vaccination[3]?.type}}" [disabled]="!isEditMode"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Date Received</ion-label>
+            <ion-input [(ngModel)]="vaccinationDate_4" type="text" name="vaccinationDate_4" value="{{vaccination[3]?.dateReceived}}" [disabled]="!isEditMode"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Vaccination</ion-label>
+            <ion-input [(ngModel)]="vaccination_5" type="text" name="vaccination_5" value="{{vaccination[4]?.vaccination}}" [disabled]="!isEditMode"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Type</ion-label>
+            <ion-input [(ngModel)]="vaccinationType_5" type="text" name="vaccinationType_5" value="{{vaccination[4]?.type}}" [disabled]="!isEditMode"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Date Received</ion-label>
+            <ion-input [(ngModel)]="vaccinationDate_5" type="text" name="vaccinationDate_5" value="{{vaccination[4]?.dateReceived}}" [disabled]="!isEditMode"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Vaccination</ion-label>
+            <ion-input [(ngModel)]="vaccination_6" type="text" name="vaccination_6" value="{{vaccination[5]?.vaccination}}" [disabled]="!isEditMode"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Type</ion-label>
+            <ion-input [(ngModel)]="vaccinationType_6" type="text" name="vaccinationType_6" value="{{vaccination[5]?.type}}" [disabled]="!isEditMode"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Date Received</ion-label>
+            <ion-input [(ngModel)]="vaccinationDate_6" type="text" name="vaccinationDate_6" value="{{vaccination[5]?.dateReceived}}" [disabled]="!isEditMode"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Vaccination</ion-label>
+            <ion-input [(ngModel)]="vaccination_7" type="text" name="vaccination_7" value="{{vaccination[6]?.vaccination}}" [disabled]="!isEditMode"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Type</ion-label>
+            <ion-input [(ngModel)]="vaccinationType_7" type="text" name="vaccinationType_7" value="{{vaccination[6]?.type}}" [disabled]="!isEditMode"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Date Received</ion-label>
+            <ion-input [(ngModel)]="vaccinationDate_7" type="text" name="vaccinationDate_7" value="{{vaccination[6]?.dateReceived}}" [disabled]="!isEditMode"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Vaccination</ion-label>
+            <ion-input [(ngModel)]="vaccination_8" type="text" name="vaccination_8" value="{{vaccination[7]?.vaccination}}" [disabled]="!isEditMode"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Type</ion-label>
+            <ion-input [(ngModel)]="vaccinationType_8" type="text" name="vaccinationType_8" value="{{vaccination[7]?.type}}" [disabled]="!isEditMode"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Date Received</ion-label>
+            <ion-input [(ngModel)]="vaccinationDate_8" type="text" name="vaccinationDate_8" value="{{vaccination[7]?.dateReceived}}" [disabled]="!isEditMode"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Vaccination</ion-label>
+            <ion-input [(ngModel)]="vaccination_9" type="text" name="vaccination_9" value="{{vaccination[8]?.vaccination}}" [disabled]="!isEditMode"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Type</ion-label>
+            <ion-input [(ngModel)]="vaccinationType_9" type="text" name="vaccinationType_9" value="{{vaccination[8]?.type}}" [disabled]="!isEditMode"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Date Received</ion-label>
+            <ion-input [(ngModel)]="vaccinationDate_9" type="text" name="vaccinationDate_9" value="{{vaccination[8]?.dateReceived}}" [disabled]="!isEditMode"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      
+      <div class="additional-notes">
+        <h4>Additional Notes</h4>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-textarea [(ngModel)]="additionalNotesString" rows="8" [autoGrow]="true" name="additionalNotesString" [disabled]="!isEditMode"></ion-textarea>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-grid>
+  </form>
+</ion-content>

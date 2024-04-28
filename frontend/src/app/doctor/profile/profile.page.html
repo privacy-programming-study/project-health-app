@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-list class="top-menu">
+      <ion-item>
+        <ion-button class="profileBtn" (click)="onProfile()">
+          <ion-icon name="person-circle-outline"></ion-icon>
+        </ion-button>
+        <ion-button class="logoutBtn" (click)="onLogout()">
+          <ion-icon name="log-out-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+    <ion-title class="ion-text-center">Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col offset="0" class="img-col">
+        <ion-card>
+            <ion-img src= "https://www.senertec.de/wp-content/uploads/2020/04/blank-profile-picture-973460_1280.png"></ion-img>
+        </ion-card>
+      </ion-col>
+      <ion-col class="info-col">
+        <ion-card>
+          <ion-card-content style="min-height: 14.9em">
+            <div style="margin-bottom: 1em; font-size: 1.5em; display: flex;"><div><b>{{doctor?.firstname}} {{doctor?.lastname}}</b></div><ion-icon class="edit-profile" name="create-outline" (click)="onEdit()"></ion-icon></div>
+            <div style="margin-bottom: 0.5em; display: flex;"><ion-icon class="info-icon" name="medkit-outline"></ion-icon> <div>{{doctor?.specialization_type}}</div></div>
+            <div style="margin-bottom: 0.5em; display: flex;"><ion-icon class="info-icon" name="mail-outline"></ion-icon> <div>{{doctor?.email}}</div></div>
+            <div style="display: flex;"><ion-icon class="info-icon" name="business-outline"></ion-icon> <div>{{doctor?.work_address}}, {{doctor?.work_city}} {{doctor?.work_zip}}</div></div>
+          </ion-card-content>
+        </ion-card> 
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+

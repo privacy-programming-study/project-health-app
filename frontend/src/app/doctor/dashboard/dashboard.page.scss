@@ -1,0 +1,80 @@
+@import "../../../global.scss";
+
+ion-title {
+    text-align: center;
+    padding-inline: 0;
+    padding-left: 3em;
+    margin-top: 14px;
+}
+
+ion-select::part(icon) {
+    display: none !important;
+}
+
+.top-menu {
+    padding-top: 0;
+    padding-bottom: 0;
+    background: none;
+    width: fit-content;
+    float: right;
+    ion-item {
+        margin: 0;
+    }
+    ion-item::part(native) {
+        background-color: var(--primary);
+        border-bottom: none;
+        border-radius: 50%;
+        padding-left: 0;
+    }
+    ion-icon {
+        color: white;
+    }
+}
+
+ion-item {
+    --background-hover: none;
+}
+
+.profile {
+    float: right; 
+    font-size: 1.25em;
+}
+
+.profile:hover {
+    cursor: pointer;
+}
+
+.cards{
+    height: 180px;
+}
+
+.info-col li {
+    list-style: none;
+}
+
+h4 {
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    line-height: 1.1;
+    font-weight: bold;
+}
+
+.canceled {
+    text-decoration: line-through;
+}
+
+.cancel-label {
+    color: var(--error);
+}
+
+full-calendar {
+    padding: 20px;
+}
+
+.sendMailButton {
+    padding-left: 17px;
+    padding-top: 20px;
+    padding-bottom: 25px;
+}

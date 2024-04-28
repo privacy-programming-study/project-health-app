@@ -1,0 +1,116 @@
+@import "../../../global.scss";
+
+ion-title {
+    text-align: center;
+    padding-inline: 0;
+    padding-left: 3em;
+    margin-top: 14px;
+}
+
+.top-menu ion-select::part(icon) {
+    display: none !important;
+}
+
+.top-menu {
+    padding-top: 0;
+    padding-bottom: 0;
+    background: none;
+    width: fit-content;
+    float: right;
+    ion-item {
+        margin: 0;
+    }
+    ion-item::part(native) {
+        background-color: var(--primary);
+        border-bottom: none;
+        border-radius: 50%;
+        padding-left: 0;
+    }
+    ion-icon {
+        color: white;
+    }
+}
+
+ion-item {
+    --background-hover: none;
+}
+
+ion-radio {
+    margin-right: 0.5em;
+}
+
+ion-list-header {
+    font-size: 17px;
+    width: -webkit-fill-available;
+    margin-right: 26px;
+}
+
+.gender, .insurance {
+    padding: 0;
+    margin-top: -12px;
+}
+
+.gender > ion-item, .insurance > ion-item {
+    margin: 0;
+}
+
+ion-popover::part(content) {
+    border-radius: 4px;
+    transform-origin: left top;
+    width: fit-content;
+    right: 16px;
+}
+
+.profile {
+    float: right; 
+    font-size: 1.25em;
+}
+
+.profile:hover {
+    cursor: pointer;
+}
+
+.item-interactive.ion-valid {
+    --highlight-background: var(--primary);
+}
+
+ion-popover::part(content) {
+    top: unset !important;
+    left: 33% !important;
+    bottom: 17em;
+}
+
+h4 {
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: -8px;
+    font-weight: 500;
+    line-height: 1.1;
+    font-weight: bold;
+    padding-left: 7px;
+}
+
+h6 {
+    padding-left: 7px;
+    margin-bottom: -8px;
+    margin-top: 2em;
+}
+
+ion-row {
+    margin-bottom: -1.5em;
+}
+
+.insurance-info, .health-info, .emergency-contact, .additional-notes {
+    margin-top: 3em;
+}
+
+.edit-health-records {
+    font-size: 2em;
+    color: var(--primary);
+    margin-top: 0.5em;
+}
+
+.edit-health-records:hover {
+    cursor: pointer;
+    color: black;
+}

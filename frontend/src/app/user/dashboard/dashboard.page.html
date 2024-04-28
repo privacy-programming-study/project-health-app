@@ -1,0 +1,156 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-list class="top-menu">
+      <ion-item>
+        <ion-button class="profileBtn" (click)="onProfile()">
+          <ion-icon name="person-circle-outline"></ion-icon>
+        </ion-button>
+        <ion-button class="logoutBtn" (click)="onLogout()">
+          <ion-icon name="log-out-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+    <ion-title class="ion-text-center">Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row *ngFor="let item of permissionRequested; let i = index">
+      <ion-col offset="0" class="info-col">
+        <ion-card>
+          <ion-card-content>
+            <li>
+              <strong>{{item.doctor}} requested to see your medical health record</strong>
+              <div class="appointment">
+                <div class="requestBtns">
+                  <ion-button color="primary" size="small" (click)="presentAlert(null, null, 'grant_permission', item)">Allow</ion-button>
+                  <ion-button color="tertiary" size="small" (click)="presentAlert(null, null, 'deny_permission', item)">Do not allow</ion-button>
+                </div>
+              </div>
+            </li>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col offset="0" class="info-col">
+        <ion-card>
+          <ion-card-content >
+            <h4>Today's Appointments</h4>
+            <li *ngFor="let item of userAppointmentsToday; let i = index">
+              <strong>Appointment {{i+1}}</strong>
+              <div class="appointment">
+                <div>
+                  Doctor: {{item.doctor}}
+                </div>
+                <div>
+                  Doctor Specialist: {{item.appointment_doctor_type}}
+                </div>
+                <div>
+                  Reason: {{item.appointment_reason}}
+                </div>
+                <div>
+                  Date & Time: {{item.appointment_date}}, {{item.appointment_time}}
+                </div>
+                <div>
+                  Place: {{item.place}}
+                </div>
+              </div>
+            </li>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col class="info-col">
+        <ion-card>
+          <ion-card-content >
+            <h4>Upcoming Appointments</h4>
+            <li *ngFor="let item of userAppointmentsUpcoming; let i = index">
+              <strong>Appointment {{i+1}}</strong>
+              <div class="appointment" [ngClass]="item.appointment_status == 'canceled' ? 'canceled': ''">
+                <div>
+                    Doctor: {{item.doctor}}
+                </div>
+                <div>
+                    Doctor Specialist: {{item.appointment_doctor_type}}
+                </div>
+                <div>
+                  Reason: {{item.appointment_reason}}
+                </div>
+                <div>
+                  Date & Time: {{item.appointment_date}}, {{item.appointment_time}}
+                </div>
+                <div>
+                  Place: {{item.place}}
+                </div>
+              </div>
+              <ng-template [ngIf]="item.appointment_status != 'canceled'"><ion-button color="primary" (click)="presentAlert(item, item.user_patient_id, 'cancel_accepted', null)">Cancel</ion-button></ng-template>
+              <ng-template [ngIf]="item.appointment_status == 'canceled'"><div class="cancel-label">CANCELED!</div></ng-template>
+            </li>
+          </ion-card-content>
+        </ion-card> 
+      </ion-col>
+    </ion-row>
+    <ion-row size = "4">
+      <ion-col class="info-col">
+        <ion-card>
+          <ion-card-content >
+            <h4>Requested Appointments</h4>
+            <li *ngFor="let item of userAppointmentsRequested; let i = index">
+              <strong>Appointment {{i+1}}</strong>
+              <div class="appointment">
+                <div>
+                  Doctor: {{item.doctor}}
+                </div>
+                <div>
+                  Doctor Specialist: {{item.appointment_doctor_type}}
+                </div>
+                <div>
+                  Reason: {{item.appointment_reason}}
+                </div>
+                <div>
+                  Date & Time: {{item.appointment_date}}, {{item.appointment_time}}
+                </div>
+                <div>
+                  Place: {{item.place}}
+                </div>
+              </div>
+              <ion-button color="primary" (click)="presentAlert(item, null, 'cancel_requested', null)">Cancel</ion-button>
+            </li>
+          </ion-card-content>
+        </ion-card> 
+      </ion-col>
+      <ion-col class="info-col">
+        <ion-card>
+          <ion-card-content >
+            <h4>Declined Appointments</h4>
+            <li *ngFor="let item of userAppointmentsDeclined; let i = index">
+              <strong>Appointment {{i+1}}</strong>
+              <div class="appointment">
+                <div>
+                  Doctor: {{item.doctor}}
+                </div>
+                <div>
+                  Doctor Specialist: {{item.appointment_doctor_type}}
+                </div>
+                <div>
+                  Reason: {{item.appointment_reason}}
+                </div>
+                <div>
+                  Date & Time: {{item.appointment_date}}, {{item.appointment_time}}
+                </div>
+                <div>
+                  Place: {{item.place}}
+                </div>
+              </div>
+              <ion-button color="primary" (click)="presentAlert(item, null, 'delete_declined', null)">Remove</ion-button>
+            </li>
+          </ion-card-content>
+        </ion-card> 
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+
+ 

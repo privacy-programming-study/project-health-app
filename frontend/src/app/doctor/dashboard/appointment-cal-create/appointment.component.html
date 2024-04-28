@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>New Appointment ({{date}})</h2>
+
+<div class="dialog">
+    <mat-dialog-content>
+        <form #regfrmlog = "ngForm">
+            <form-field-custom-control-example #appointment_time></form-field-custom-control-example>
+            <ion-input color="dark" type = "text" placeholder = "Patient name" required="true" ngModel name = 'patient_name'> </ion-input>
+            <ion-input color="dark" type = "text" placeholder = "Reason" ngModel name = 'appointment_reason' required="true"> </ion-input>
+        </form>
+    </mat-dialog-content>
+</div>
+
+<mat-dialog-actions>
+    <button class="mat-raised-button"(click)="close()">Close</button>
+    <button class="mat-raised-button mat-primary"(click)="save()" [disabled]="!regfrmlog.valid || buttonDisabled()">Save</button>
+</mat-dialog-actions>

@@ -1,0 +1,230 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Back" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Doctor Registrate</ion-title>
+  </ion-toolbar>
+</ion-header>
+  
+  <ion-content>
+  
+    <form #regfrmlog = "ngForm">
+   <ion-grid>
+    <ion-row>
+      <ion-col size-lg = "6" offset-lg = "3" >
+    <ion-card>
+      <ion-card-content>
+        <ion-list>
+        <ion-item>
+          <ion-input color="dark" type = "text" placeholder = "First Name" required="true" ngModel name = 'firstname'> </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input color="dark" type = "text" placeholder = "Last Name" ngModel name = 'lastname' required="true"> </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input pattern="([A-Za-z0-9][._]?)+[A-Za-z0-9]@[A-Za-z0-9]+(\.?[A-Za-z0-9]){2}\.(com?|net|org|de)+(\.[A-Za-z0-9]{2,4})?" color="dark" type = "email" placeholder = "Email" required="true" ngModel name ="email" #Regemailctrl = "ngModel"> </ion-input>  
+          <ion-label *ngIf="!Regemailctrl.valid && Regemailctrl.touched" lines = "none"> Invalid Email.</ion-label> 
+        </ion-item>
+        <ion-item>
+          <ion-input color="dark" type = "password" minlength="8" placeholder = "Password" required="true" ngModel name ="password" #regpassword = "ngModel"> </ion-input>
+        </ion-item>
+        <ion-label class="input-error" *ngIf="!regpassword.valid && regpassword.touched" lines = "none"><ion-icon name="alert-circle-outline"></ion-icon>Password needs to be at least 8 characters!</ion-label>
+        <ion-item>
+          <ion-input color="dark" type = "password" minlength="8" placeholder = "Confirm Password" required="true" ngModel  name ="regverifypassword" #regverifypass = "ngModel"> </ion-input>
+        </ion-item>
+        <ion-label class="input-error" *ngIf="passwordVerify()" lines = "none"><ion-icon name="alert-circle-outline"></ion-icon>Password and Confirm Password do not match!</ion-label>
+
+        <ion-list>  
+          <ion-radio-group  ngModel name = "gender" required="true">
+            <ion-row>
+              <ion-list-header>  
+                Gender  
+              </ion-list-header> 
+              <ion-col class="gender">
+                <ion-item>
+                    <ion-radio mode="md" item-left value="M"></ion-radio>
+                    <ion-label>Male</ion-label>
+                </ion-item>
+               </ion-col>
+              <ion-col class="gender">
+                <ion-item>
+                    <ion-radio mode="md" item-left value="F"></ion-radio>
+                    <ion-label>Female</ion-label>
+                </ion-item>
+              </ion-col>
+              <ion-col class="gender">
+                <ion-item>
+                  <ion-radio mode="md" item-left value="O"></ion-radio>
+                  <ion-label>Other</ion-label>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-radio-group>
+        </ion-list>
+  
+        <ion-item class="birth-date">
+          <ion-input
+            id="date"
+            placeholder="Birth Date (YYYY-MM-DD)"
+            color="dark"
+            #DateController = "ngModel"
+            ngModel name = 'birthdate' required="true"
+            pattern="([0-9]{4})-(0[1-9]|10|11|12)-(0[1-9]|1[0-9]|2[0-9]|30|31)"
+          ></ion-input>
+        </ion-item>
+        <ion-label class="input-error" *ngIf="!DateController.valid && DateController.touched" lines = "none"><ion-icon name="alert-circle-outline"></ion-icon>Invalid date. Please use this format: YYYY-MM-DD</ion-label>
+     <ion-item>
+      <ion-input color="dark" type = "text" ngModel placeholder = "Work Address" name = 'work_address' required="true"> </ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input color="dark" type = "text" ngModel placeholder = "Work City" name = 'work_city' required="true"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input color="dark" type="text" (keypress)="numberOnlyValidation($event)" ngModel placeholder="Work Zip" name = 'work_zip' required="true"></ion-input>
+    </ion-item>
+      </ion-list>
+      
+      <ion-list>
+        <ion-item>
+          <ion-select placeholder="Specialization" ngModel name = 'specialization_type' required="true" [multiple]="true">
+            <ion-select-option value = "Anaesthetists">Anaesthetists</ion-select-option>
+            <ion-select-option value = "Emergency medicine">Emergency medicine</ion-select-option>
+            <ion-select-option value = "Oncologists">Oncologists</ion-select-option>
+            <ion-select-option value = "Ophthalmology">Ophthalmology</ion-select-option>
+            <ion-select-option value = "Pathology">Pathology</ion-select-option>
+            <ion-select-option value = "Physicians">Physicians</ion-select-option>
+            <ion-select-option value = "Psychiatrists">Psychiatrists</ion-select-option>
+            <ion-select-option value = "Radiologists">Radiologists</ion-select-option>
+            <ion-select-option value = "Other">Other</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      <ion-item [ngStyle]="{'display': onSpecialization() ? 'none' : 'block'}">
+        <ion-input color="dark" type="text" ngModel placeholder="Please specify other Specialization" name = 'other_specialization_type' ></ion-input>
+      </ion-item>
+
+      <ion-col class="terms-consent">
+        <ion-item>
+          <ion-checkbox checked="{{terms}}" (ionChange)="agreeTerms()"></ion-checkbox>
+          <ion-label class="terms-consent">I have read and agreed to the <a id="open-modal" (click)="setOpenModal(true)">Terms and Conditions</a> <span style="color: red; margin-left: 0.2em;">*</span></ion-label>
+        </ion-item>
+      </ion-col>
+      
+      <ion-row>
+        <ion-col>
+          <ion-modal #modal [isOpen]="isModalOpen">
+            <ng-template>
+              <ion-header>
+                <ion-toolbar class="close-modal">
+                  <ion-title class="terms-and-conditions">Terms and Conditions</ion-title>
+                  <ion-buttons slot="end">
+                    <ion-button (click)="setOpenModal(false)">Close</ion-button>
+                  </ion-buttons>
+                </ion-toolbar>
+              </ion-header>
+              <ion-content class="ion-padding">
+                <p>
+                  **1. Acceptance of Terms**
+                </p>
+                <p>
+                  Welcome to our Health App. By using our App and its services, you agree to comply with and be bound by these Terms and Conditions ("Terms"). If you do not agree to these Terms, please do not use our App.
+                </p>
+                <p>
+                  **2. Registration**
+                </p>
+                <p>
+                  **2.1 Eligibility:** By registering for an account on our App, you represent and warrant that you are at least 18 years old and capable of forming a legally binding contract. If you are registering on behalf of a minor or someone else, you must have the legal authority to do so.
+                </p>
+                <p>
+                  **2.2 Accurate Information:** You agree to provide accurate, current, and complete information during the registration process and to update such information to keep it accurate, current, and complete.
+                </p>
+                <p>
+                  **3. Health Information**
+                </p>
+                <p>
+                  **3.1 Privacy:** We are committed to protecting your privacy and handling your health information in accordance with our Privacy Policy. By using the App, you consent to the collection, use, and disclosure of your health information as described in the Privacy Policy.
+                </p>
+                <p>
+                  **3.2 Accuracy:** You are responsible for the accuracy and completeness of the health information you provide on the App. We are not responsible for any inaccuracies or omissions in the information provided by you or others.
+                </p>
+  
+                <p>
+                  **4. Medical Services**
+                </p>
+                <p>
+                  **4.1 Disclaimer:** The App is designed to provide general health information and is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified healthcare providers with any questions you may have regarding a medical condition.
+                </p>
+                <p>
+                  **4.2 Emergency:** In case of a medical emergency, call 911 or your local emergency number immediately. The App is not to be used for emergencies.
+                </p>
+  
+                <p>
+                  **5. User Conduct**
+                </p>
+                <p>
+                  You agree not to:
+                </p>
+                <p>
+                  **5.1** Use the App for any unlawful purpose or in violation of these Terms.
+                </p>
+                <p>
+                  **5.2** Interfere with or disrupt the App or its services.
+                </p>
+                <p>
+                  **5.3** Transmit any viruses, worms, or harmful code.
+                </p>
+                <p>
+                  **5.4** Harass, intimidate, or threaten other users or engage in any form of hate speech.
+                </p>
+  
+                <p>
+                  **6. Termination**
+                </p>
+                <p>
+                  We reserve the right to terminate or suspend your account and access to the App at our sole discretion, without notice, for any reason, including but not limited to a violation of these Terms.
+                </p>
+  
+                <p>
+                  **7. Changes to Terms**
+                </p>
+                <p>
+                  We may update these Terms from time to time. Any changes will be posted on the App, and your continued use of the App after such changes constitute your acceptance of the revised Terms.
+                </p>
+  
+                <p>
+                  **8. Contact Information**
+                </p>
+                <p>
+                  If you have any questions about these Terms or the App, please contact us at admin@admin.com.
+                </p>
+              </ion-content>
+            </ng-template>
+          </ion-modal>
+          <ion-button (click)="onRegSubmit()" expand="block" color="primary" type = "submit" [disabled]="!regfrmlog.valid || !terms">Sign-Up</ion-button>
+        </ion-col>
+      </ion-row>
+      </ion-card-content>
+    </ion-card>
+  
+  </ion-col>
+  </ion-row>
+  
+  </ion-grid>
+  </form>
+  
+  </ion-content>
+  <!--ion-toolbar>
+    <ion-tabs>
+      <ion-tab-bar slot = "bottom">
+          <ion-tab-button href="/registrate/user">
+              <ion-label>User Registrate</ion-label>
+              <ion-icon name="person-outline"></ion-icon>
+            </ion-tab-button>
+            <ion-tab-button href="/registrate/doctor">
+              <ion-label>Doctor Registrate</ion-label>
+              <ion-icon name="medkit-outline"></ion-icon>
+            </ion-tab-button>
+        </ion-tab-bar>
+    </ion-tabs>
+  </ion-toolbar-->

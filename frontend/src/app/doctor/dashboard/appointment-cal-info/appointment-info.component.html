@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Appointment Information</h2>
+
+<div class="dialog">
+    <mat-dialog-content>
+        <h3><ion-icon name="person-outline"></ion-icon><div class="title">Patient</div></h3>
+        <div class="info">{{patient}}</div>
+        <h3><ion-icon name="calendar-outline"></ion-icon><div class="title">Date</div></h3>
+        <div class="info">{{date}}</div>
+        <h3><ion-icon name="time-outline"></ion-icon><div class="title">Time</div></h3>
+        <div class="info">{{time}}</div>
+        <h3><ion-icon name="help-outline"></ion-icon><div class="title">Reason</div></h3>
+        <div class="info">{{reason}}</div>
+    </mat-dialog-content>
+</div>
+
+<mat-dialog-actions>
+    <button class="mat-raised-button"(click)="close()">Close</button>
+</mat-dialog-actions>

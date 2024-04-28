@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+
+  database:
+    build: database/.
+    container_name: 'mysql_database'
+    restart: always
+    ports: 
+      - "3001:3306"
+    volumes:
+      - db_mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: db_user
+      MYSQL_PASSWORD: test
+    
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: 'phpmyadmin'
+    ports:
+      - "3002:80"
+    depends_on:
+      - database
+    environment:
+      PMA_HOST: database
+
+  mailcatcher:
+    image: schickling/mailcatcher
+    container_name: 'mailcatcher'
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+   
+volumes:
+  db_mysql:
