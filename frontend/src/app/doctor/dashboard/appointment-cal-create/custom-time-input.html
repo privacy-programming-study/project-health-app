@@ -1,0 +1,27 @@
+<div class="label">Appointment Time</div>
+<div role="group" class="example-time-input-container"
+     [formGroup]="parts"
+     [attr.aria-labelledby]="_formField.getLabelId()"
+     (focusin)="onFocusIn($event)"
+     (focusout)="onFocusOut($event)">
+  <input class="example-time-input-element" placeholder="hh"
+         formControlName="hour" size="2"
+         maxLength="2"
+         aria-label="Hour"
+         (input)="_handleInput(parts.controls.hour, minute)"
+         #hour>
+  <span class="example-time-input-spacer">:</span>
+  <input class="example-time-input-element" placeholder="mm"
+         formControlName="minute"
+         maxLength="2"
+         size="2"
+         aria-label="Minute"
+         (input)="_handleInput(parts.controls.minute, subscriber)"
+         (keyup.backspace)="autoFocusPrev(parts.controls.minute, hour)"
+         #minute>
+</div>
+
+
+<!-- Copyright 2023 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at https://angular.io/license -->

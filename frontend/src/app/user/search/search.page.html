@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-list class="top-menu">
+      <ion-item>
+        <ion-button class="profileBtn" (click)="onProfile()">
+          <ion-icon name="person-circle-outline"></ion-icon>
+        </ion-button>
+        <ion-button class="logoutBtn" (click)="onLogout()">
+          <ion-icon name="log-out-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+    <ion-title class="ion-text-center">Search Doctor</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="example-form">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label style="color: #0000007a !important; font-size: 1.5em;">Search for Doctor (Type name or specialization)</mat-label>
+      <input #doctor type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+
+  <div class = "specProb">
+    <ion-card *ngFor="let item of filteredDoctorsInfo;" style="margin-bottom: 2em;">
+      <ion-card-content>
+        <h4>Dr. {{item.firstname}} {{item.lastname}}</h4>
+          <div class="appointment">
+            <div>
+              <span style="font-weight: bold;">Specialization:</span> {{item.specialization_type}}
+            </div>
+            <div>
+              <span style="font-weight: bold;">E-Mail:</span> {{item.email}}
+            </div>
+            <div>
+              <span style="font-weight: bold;">Address:</span> {{item.work_address}}, {{item.work_city}}, {{item.work_zip}}
+            </div>
+          </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+  

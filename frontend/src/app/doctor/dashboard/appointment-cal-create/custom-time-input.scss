@@ -1,0 +1,31 @@
+@import "../../../../global.scss";
+
+.example-time-input-container {
+    display: flex;
+    color: black;
+  }
+  
+.example-time-input-element {
+  border: none;
+  background: none;
+  padding: 0;
+  outline: none;
+  font: inherit;
+  text-align: center;
+  width: 24px;
+}
+
+.example-time-input-spacer {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
+:host.example-floating .example-time-input-spacer {
+  opacity: 1;
+}
+
+.label {
+  color: var(--secondary);
+  margin-bottom: 7px;
+}
+  

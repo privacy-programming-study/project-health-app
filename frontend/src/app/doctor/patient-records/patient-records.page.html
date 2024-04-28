@@ -1,0 +1,187 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-list class="top-menu">
+        <ion-item>
+          <ion-button class="profileBtn" (click)="onProfile()">
+            <ion-icon name="person-circle-outline"></ion-icon>
+          </ion-button>
+          <ion-button class="logoutBtn" (click)="onLogout()">
+            <ion-icon name="log-out-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+      <ion-title class="ion-text-center">Patient Health Records</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="requestForm">
+    <div class="example-form">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label style="color: #0000007a !important; font-size: 1.5em;">Patient</mat-label>
+        <input #patient type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    <ion-button class="requestBtn" (click)="onSubmit()" color="primary" [disabled]="buttonDisabled()" style="margin-top: 2em;">Request Health Records</ion-button>
+  </div>
+  
+  <div class="patientRecords">
+    <ion-accordion-group [multiple]="true">
+      <ion-accordion *ngFor="let item of permissions; let i = index" [disabled]="item.status == 'requested' || item.permission == false">
+        <ion-item slot="header" color="white">
+          <ion-label>
+            {{item.patient}}
+            <span *ngIf="item.status == 'requested'">
+              (Requested)
+            </span>
+            <span *ngIf="item.permission == false">
+              (Permission denied)
+            </span>
+          </ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
+          <ion-row class="info-row">
+            <ion-col>
+              <h4>Personal Info</h4>
+              <div>
+                <strong>Name:</strong> {{item.info?.personalInfo?.firstname}} {{item.info?.personalInfo?.lastname}}<br>
+                <strong>Patient Identifier:</strong> {{item.info?.personalInfo?.patient_identifier}}<br>
+                <strong>Gender:</strong> {{item.info?.personalInfo?.gender}}<br>
+                <strong>Date of birth:</strong> {{item.info?.personalInfo?.birthdate}}<br>
+                <strong>Blood Type:</strong> {{item.info?.personalInfo?.bloodType}}<br>
+                <strong>Address:</strong> {{item.info?.personalInfo?.address}}, {{item.info?.personalInfo?.city}} {{item.info?.personalInfo?.city}}<br>
+              </div>
+            </ion-col>
+            <ion-col>
+              <h4>Insurance Info</h4>
+              <div>
+                <strong>Insurance Carrier:</strong> {{item.info?.insuranceInfo?.insuranceCarrier}}<br>
+                <strong>Insurance Plan:</strong> {{item.info?.insuranceInfo?.insurancePlan}}<br>
+                <strong>Contact Number:</strong> {{item.info?.insuranceInfo?.contactNumber}}<br>
+                <strong>Policy Number:</strong> {{item.info?.insuranceInfo?.policyNumber}}<br>
+                <strong>Group Number:</strong> {{item.info?.insuranceInfo?.groupNumber}}<br>
+                <strong>Social Security Number:</strong> {{item.info?.insuranceInfo?.socialSecurityNumber}}<br>
+              </div>
+            </ion-col>
+            <ion-col>
+              <h4>Emergency Contact</h4>
+              <div *ngFor="let contact of item.info?.emergencyContact; let i = index">
+                <strong class="multiple-info">Emergency Contact {{i+1}}</strong><br>
+                <strong>Full Name:</strong> {{contact?.fullname}}<br>
+                <strong>Relationship:</strong> {{contact?.relationship}}<br>
+                <strong>Contact Number:</strong> {{contact?.contactNumber}}<br>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <h4 style="padding-inline-start: 4px; margin-bottom: 1px;">Physician Info</h4>
+          <ion-row>
+            <ion-col *ngFor="let contact of item.info?.physicianInfo | slice:0:3; let i = index">
+              <strong class="multiple-info">Physician {{i+1}}</strong><br>
+              <div>
+                <strong>Name:</strong> {{contact?.name}}<br>
+                <strong>Speciality:</strong> {{contact?.speciality}}<br>
+                <strong>Phone:</strong> {{contact?.phone}}<br>
+                <strong>Address:</strong> {{contact?.address}}<br>
+                <strong>Notes:</strong> {{contact?.notes}}<br>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row class="info-row">
+            <ion-col *ngFor="let contact of item.info?.physicianInfo | slice:3:6; let i = index">
+              <strong class="multiple-info">Physician {{i+4}}</strong><br>
+              <div>
+                <strong>Name:</strong> {{contact?.name}}<br>
+                <strong>Speciality:</strong> {{contact?.speciality}}<br>
+                <strong>Phone:</strong> {{contact?.phone}}<br>
+                <strong>Address:</strong> {{contact?.address}}<br>
+                <strong>Notes:</strong> {{contact?.notes}}<br>
+              </div>
+            </ion-col>
+            <ion-col></ion-col>
+          </ion-row>
+
+          <ion-row class="info-row">
+            <ion-col>
+              <h4>Medical Condition</h4>
+              <div>
+                {{item.info?.medicalCondition}}
+              </div>
+            </ion-col>
+            <ion-col>
+              <h4>Allergies</h4>
+              <div>
+                {{item.info?.allergies}}
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <h4 style="padding-inline-start: 4px; margin-bottom: 1px;">Medication</h4>
+          <ion-row>
+            <ion-col *ngFor="let medication of item.info?.medication | slice:0:3; let i = index">
+              <strong class="multiple-info">Medication {{i+1}}</strong><br>
+              <div>
+                <strong>Medication Name:</strong> {{medication?.name}}<br>
+                <strong>Dose:</strong> {{medication?.dose}}<br>
+                <strong>Frequency:</strong> {{medication?.frequency}}<br>
+                <strong>Indication:</strong> {{medication?.indication}}<br>
+                <strong>Note:</strong> {{medication?.note}}<br>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row class="info-row">
+            <ion-col *ngFor="let medication of item.info?.medication | slice:3:6; let i = index">
+              <strong class="multiple-info">Medication {{i+4}}</strong><br>
+              <div>
+                <strong>Medication Name:</strong> {{medication?.name}}<br>
+                <strong>Dose:</strong> {{medication?.dose}}<br>
+                <strong>Frequency:</strong> {{medication?.frequency}}<br>
+                <strong>Indication:</strong> {{medication?.indication}}<br>
+                <strong>Note:</strong> {{medication?.note}}<br>
+              </div>
+            </ion-col>
+            <ion-col></ion-col>
+          </ion-row>
+
+          <h4 style="padding-inline-start: 4px; margin-bottom: 1px;">Vaccination</h4>
+          <ion-row>
+            <ion-col *ngFor="let vaccination of item.info?.vaccination | slice:0:5; let i = index">
+              <strong class="multiple-info">Vaccination {{i+1}}</strong><br>
+              <div>
+                <strong>Vaccination:</strong> {{vaccination?.vaccination}}<br>
+                <strong>Type:</strong> {{vaccination?.type}}<br>
+                <strong>Date Received:</strong> {{vaccination?.dateReceived}}<br>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row class="info-row">
+            <ion-col *ngFor="let vaccination of item.info?.vaccination | slice:5:9; let i = index">
+              <strong class="multiple-info">Vaccination {{i+6}}</strong><br>
+              <div>
+                <strong>Vaccination:</strong> {{vaccination?.vaccination}}<br>
+                <strong>Type:</strong> {{vaccination?.type}}<br>
+                <strong>Date Received:</strong> {{vaccination?.dateReceived}}<br>
+              </div>
+            </ion-col>
+            <ion-col></ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <h4>Additional Notes</h4>
+              <div>
+                {{item.info?.additionalNotes}}
+              </div>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+  </div>
+</ion-content>
+  
+  

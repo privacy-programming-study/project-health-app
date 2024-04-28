@@ -1,0 +1,101 @@
+@import "../../../global.scss";
+
+ion-title {
+    text-align: center;
+    padding-inline: 0;
+    padding-right: 4.9em;
+}
+
+ion-back-button {
+    color: white;
+}
+
+ion-toolbar {
+    --background: var(--primary);
+    display: flex;
+    color: white;
+}
+
+ion-icon {
+    color: var(--primary);
+}
+
+ion-input {
+    color: var(--primary);
+}
+
+ion-radio {
+    margin-right: 0.5em;
+}
+
+ion-list-header {
+    font-size: 17px;
+    width: -webkit-fill-available;
+    margin-right: 26px;
+}
+
+
+.gender, .insurance {
+    padding: 0;
+    margin-top: -12px;
+}
+
+.gender > ion-item, .insurance > ion-item {
+    margin: 0;
+}
+
+.registrate-btn {
+    --color: var(--primary)
+}
+
+.item-interactive.ion-valid {
+    --highlight-background: var(--primary);
+}
+
+ion-popover::part(content) {
+    top: unset !important;
+    left: 33% !important;
+    bottom: 17em;
+}
+
+ion-checkbox {
+    --size: 20px;
+    --checkbox-background-checked: var(--primary);
+    margin-right: 0.5em;
+}
+
+ion-checkbox::part(container) {
+    border-radius: 6px;
+    border-width: 2px;
+    border-style: solid;
+}
+
+a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.terms-consent:hover {
+    cursor: default;
+}
+
+.terms-and-conditions {
+    color: #006d3e;
+    padding-right: 0;
+    padding-left: 67px;
+}
+
+.close-modal {
+    color: black;
+}
+
+.input-error {
+    color: var(--ion-color-danger);
+}
+
+.input-error ion-icon {
+    color: var(--ion-color-danger);
+    margin-left: 1em;
+    margin-right: 3px;
+    margin-bottom: -1px;
+}

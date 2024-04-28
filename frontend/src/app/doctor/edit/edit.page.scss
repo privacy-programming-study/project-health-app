@@ -1,0 +1,96 @@
+@import "../../../global.scss";
+
+ion-title {
+    text-align: center;
+    padding-inline: 0;
+    padding-left: 3em;
+    margin-top: 14px;
+}
+
+.top-menu ion-select::part(icon) {
+    display: none !important;
+}
+
+.top-menu {
+    padding-top: 0;
+    padding-bottom: 0;
+    background: none;
+    width: fit-content;
+    float: right;
+    ion-item {
+        margin: 0;
+    }
+    ion-item::part(native) {
+        background-color: var(--primary);
+        border-bottom: none;
+        border-radius: 50%;
+        padding-left: 0;
+    }
+    ion-icon {
+        color: white;
+    }
+}
+
+ion-item {
+    --background-hover: none;
+}
+
+ion-radio {
+    margin-right: 0.5em;
+}
+
+ion-list-header {
+    font-size: 17px;
+    width: -webkit-fill-available;
+    margin-right: 26px;
+}
+
+.specialization {
+    width: 100%;
+}
+
+.gender {
+    padding: 0;
+    margin-top: -12px;
+}
+
+.gender > ion-item {
+    margin: 0;
+}
+
+ion-popover::part(content) {
+    border-radius: 4px;
+    transform-origin: left top;
+    width: fit-content;
+    right: 16px;
+}
+
+.profile {
+    float: right; 
+    font-size: 1.25em;
+}
+
+.profile:hover {
+    cursor: pointer;
+}
+
+.item-interactive.ion-valid {
+    --highlight-background: var(--primary);
+}
+
+ion-popover::part(content) {
+    top: unset !important;
+    left: 33% !important;
+    bottom: 17em;
+}
+
+.input-error {
+    color: var(--ion-color-danger);
+}
+
+.input-error ion-icon {
+    color: var(--ion-color-danger);
+    margin-left: 1em;
+    margin-right: 3px;
+    margin-bottom: -1px;
+}

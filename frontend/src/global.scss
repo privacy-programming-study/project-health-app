@@ -1,0 +1,193 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+:host {
+    --primary: #006d3e;
+    --secondary: #4f6353;
+    --tertiary: #3a646f;
+    --error: #ba1a1a;
+	--primary-container: #96f7b8;
+	--secondary-container: #d1e8d5;
+	--tertiary-container: #beeaf7;
+	--error-container: #ffdad6;
+	--background-color: #fdfdf5;
+	--surface: #fbfdf8;
+	--outline: #717971;
+	--surface-variant: #dce5db;
+}
+
+.flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+ion-content{
+    --background: var(--background-color);
+    margin-top: 50px;
+}
+
+.ion-invalid.ion-touched ion-label{
+    color: var(--ion-color-danger);
+}
+
+ion-item {
+    margin:10px auto;
+}
+
+.mat-form-field-underline::before {
+    background-color: #d2d2d2 !important;
+}
+
+.mat-form-field-ripple {
+    background-color: #a5a5a5 !important;
+}
+
+.mat-form-field-appearance-fill, .mat-form-field-infix {
+    padding: 0.5em 0 !important;
+}
+
+.mat-input-element {
+    caret-color: black !important;
+}
+
+
+ion-popover::part(content) {
+    border-radius: 4px;
+    transform-origin: left top;
+    width: fit-content;
+    right: 1.5%;
+    margin-top: 5px;
+}
+
+.sc-ion-select-popover-md-h ion-list.sc-ion-select-popover-md {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+/* FullCalendar Styling */
+.fc-header-toolbar {
+    margin-bottom: 10px !important;
+}
+.fc-button {
+    background-color: var(--tertiary) !important;
+    border-color: var(--tertiary) !important;
+}
+.fc-today-button {
+    background-color: var(--secondary) !important;
+    border-color: var(--secondary) !important;
+}
+.fc th {
+    background-color: var(--primary) !important;
+}
+.fc .fc-col-header-cell-cushion {
+    color: white !important;
+}
+.fc .fc-daygrid-day-frame {
+    background-color: white !important;
+}
+.fc .fc-toolbar-title {
+    color: #737373 !important;
+    font-weight: bold !important;
+}
+.fc-timegrid-event .fc-event-main {
+    color: white !important;
+}
+.fc-daygrid-event-harness:hover {
+    cursor: pointer;
+}
+.fc-daygrid-event-dot {
+    border-color: var(--outline) !important;
+}
+.fc-direction-ltr .fc-daygrid-event.fc-event-end, .fc-direction-rtl .fc-daygrid-event.fc-event-start {
+    color: var(--secondary) !important;
+}
+.fc-timegrid-event-harness-inset .fc-timegrid-event, .fc-timegrid-event.fc-event-mirror, .fc-timegrid-more-link {
+    background-color: var(--tertiary) !important;
+    border-color: var(--tertiary) !important;
+}
+.fc .fc-timegrid-col.fc-day-today {
+    background-color: var(--surface-variant) !important;
+}
+
+.dialog mat-dialog-container{
+    background: white !important;
+    height: 28em !important;
+    width: 35em !important;
+}
+
+.dialog button {
+    padding: 12px !important;
+    margin-right: 1em !important;
+    border-radius: 5px !important;
+    margin-top: 1.25em !important;
+}
+
+.dialog .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary {
+    background-color: var(--primary) !important;
+    text-transform: uppercase;
+}
+
+.dialog .mat-raised-button {
+    text-transform: uppercase;
+}
+
+.dialog .mat-raised-button {
+    background-color: var(--tertiary) !important;
+}
+
+form-field-custom-control-example > div {
+    margin-top: -1em;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-underline::before {
+    display: none !important;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-ripple {
+    height: 0px !important;
+}
+
+.mat-form-field {
+    width: 100% !important;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: var(--surface-variant) !important;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
+}
+
+.profileBtn::part(native), .logoutBtn::part(native) {
+    font-size: 17px;
+    box-shadow: none;
+    border-radius: 15px;
+    padding: 16px 5px;
+}

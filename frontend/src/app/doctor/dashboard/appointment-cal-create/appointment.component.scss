@@ -1,0 +1,22 @@
+@import "../../../../global.scss";
+
+ion-input {
+    color: var(--primary);
+    border-bottom-style: solid;
+    border-bottom-color: var(--surface-variant);
+    border-bottom-width: 1px;
+    margin-top: 12px;
+}
+
+h2 {
+    color: #737373;
+}
+
+form-field-custom-control-example div {
+    margin-top: -1em;
+}
+
+button:disabled {
+    cursor: not-allowed !important;
+    opacity: 0.5 !important;
+}

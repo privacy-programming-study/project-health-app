@@ -1,0 +1,51 @@
+@import "../../../global.scss";
+
+ion-title {
+    text-align: center;
+    padding-inline: 0;
+    padding-right: 4.9em;
+}
+
+ion-back-button {
+    color: white;
+}
+
+ion-toolbar {
+    --background: var(--primary);
+    display: flex;
+    color: white;
+}
+
+ion-icon {
+    color: var(--primary);
+}
+
+ion-input {
+    color: var(--primary);
+}
+
+.item-interactive.ion-valid {
+    --highlight-background: var(--primary);
+}
+
+.login-btn {
+    margin-top: 2.5em;
+}
+
+.forgot-btn {
+    margin-top: 1.75em;
+}
+
+.registrate {
+    text-align: center;
+    margin-right: -48px;
+    margin-top: 25px;
+}
+
+.registrate-link {
+    width: fit-content;
+    display: inline-flex;
+    margin: 0;
+    color: #3880ff;
+    margin-left: -1em;
+}

@@ -1,0 +1,26 @@
+@import "../../../../global.scss";
+
+div, h3 {
+    color: #737373;
+}
+
+h3 {
+    font-size: 18px;
+    display: inline-flex;
+    margin-top: 16px;
+}
+
+h2 {
+    margin-bottom: 2px;
+    margin-top: 2px;
+    color: var(--primary);
+}
+
+.info {
+    margin-top: -5px;
+}
+
+.title {
+    margin-left: 6px;
+    margin-top: -0.5px;
+}

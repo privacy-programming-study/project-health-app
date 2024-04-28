@@ -1,0 +1,61 @@
+@import "../../global.scss";
+
+ion-title {
+    text-align: center;
+    padding-inline: 0;
+    padding-left: 4em;
+    margin-top: 14px;
+}
+
+.top-menu {
+    padding-top: 0;
+    padding-bottom: 0;
+    background: none;
+    width: fit-content;
+    float: right;
+    ion-item {
+        margin: 0;
+    }
+    ion-item::part(native) {
+        background-color: var(--primary);
+        border-bottom: none;
+        border-radius: 50%;
+        padding-left: 0;
+    }
+    ion-icon {
+        color: white;
+    }
+}
+
+table.mat-table {
+    display: table;
+    width: 100%;
+    background: var(--surface-variant);
+    color: black !important;
+    th {
+        background: var(--tertiary);
+        background-color: var(--tertiary);
+        color: white;
+    }
+    td {
+        color: black;
+    }
+}
+
+.user-table {
+    text-align: -webkit-center;
+    margin-top: 1em;
+    margin-bottom: 3em;
+    margin-left: 3em;
+    margin-right: 3em;
+}
+
+.backup-icon {
+    margin-right: 7px;
+}
+
+.backupBtn {
+    text-align: right;
+    margin-right: 1em;
+    margin-top: 1em;
+}

@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-list class="top-menu">
+      <ion-item>
+        <ion-button class="profileBtn" (click)="onProfile()">
+          <ion-icon name="person-circle-outline"></ion-icon>
+        </ion-button>
+        <ion-button class="logoutBtn" (click)="onLogout()">
+          <ion-icon name="log-out-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+    <ion-title>Make Appointment</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form>
+    <ion-item (click) = "showPicker = !showPicker">
+      <ion-label>Date</ion-label>
+        <ion-text slot = "end">
+          {{formattedString}}
+        </ion-text>    
+    </ion-item>
+    <ion-datetime *ngIf="showPicker" #datetime [value] = "dateValue" size = "cover"
+    (ionChange)="dateChanged(datetime.value)" showDefaultButtons= "true"
+    (ionCancel) = "showPicker = false;"></ion-datetime>
+
+    <div class="example-form">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label style="color: #0000007a !important; font-size: 1.5em;">Doctor</mat-label>
+        <input #doctor type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+
+    <div class="example-form">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label style="color: #0000007a !important; font-size: 1.5em;">Reason</mat-label>
+        <input type="text" #reason matInput (input)="onReasonChange($event.target.value)">
+      </mat-form-field>
+    </div>
+
+    <ion-button (click)="onSubmit()" color="primary" [disabled]="buttonDisabled()" style="margin-top: 2em;">Request Appointment</ion-button>
+  </form>
+</ion-content>
+  

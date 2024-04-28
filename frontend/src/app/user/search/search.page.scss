@@ -1,0 +1,75 @@
+@import "../../../global.scss";
+
+ion-title {
+    text-align: center;
+    padding-inline: 0;
+    padding-left: 4.1em;
+    margin-top: 14px;
+}
+
+ion-select::part(icon) {
+    display: none !important;
+}
+
+.top-menu {
+    padding-top: 0;
+    padding-bottom: 0;
+    background: none;
+    width: fit-content;
+    float: right;
+    ion-item {
+        margin: 0;
+    }
+    ion-item::part(native) {
+        background-color: var(--primary);
+        border-bottom: none;
+        border-radius: 50%;
+        padding-left: 0;
+    }
+    ion-icon {
+        color: white;
+    }
+}
+
+ion-item {
+    --background-hover: none;
+}
+
+.profile {
+    float: right; 
+    font-size: 1.25em;
+}
+
+.profile:hover {
+    cursor: pointer;
+}
+
+.swiper-slide{
+    transition: 400ms all ease-in-out;
+}
+
+/* cards property*/
+.cardProperty{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cards{
+   height: 100%;
+   width: 100%;
+    box-shadow: none;
+}
+
+.searchbar{
+    margin: 2%;
+    flex-basis: 50px;
+}
+
+.example-form {
+    padding-left: 5em;
+    padding-right: 5em;
+    padding-top: 2em;
+}
+
+
+
