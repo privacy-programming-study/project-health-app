@@ -1,3 +1,7 @@
+# Disclaimer
+
+This repository contains the materials provided to study participants for CCS 2024 submission #476. It is not meant to be used for non research purposes. All data contained in this repository was auto-generated using faker, i.e., is not real.
+
 # Project - Health App
 
 Web Application
